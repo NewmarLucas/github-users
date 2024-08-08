@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply font-poppins text-grey-neutral;
+}
+
+h1 {
+  @apply font-poppins font-semibold text-h1;
+}
+
+h2 {
+  @apply font-poppins font-semibold text-h2;
+}
+
+h3 {
+  @apply font-poppins font-medium text-h3;
+}
+
+h4 {
+  @apply font-poppins font-semibold text-h4;
+}
+
+h5 {
+  @apply font-poppins font-normal text-h5;
+}
