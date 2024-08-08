@@ -1,4 +1,4 @@
-export default function Fork() {
+export function Fork() {
   return (
     <svg width="17" height="24" viewBox="0 0 17 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g clipPath="url(#clip0_2_1117)">

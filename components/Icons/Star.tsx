@@ -1,4 +1,4 @@
-export default function Start() {
+export function Star() {
   return (
     <svg width="26" height="24" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g clipPath="url(#clip0_1_195)">

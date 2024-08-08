@@ -1,4 +1,4 @@
-export default function Heart() {
+export function Heart() {
   return (
     <svg width="30" height="24" viewBox="0 0 30 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g clipPath="url(#clip0_2_462)">
