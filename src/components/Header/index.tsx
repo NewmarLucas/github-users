@@ -1,50 +1,60 @@
 'use client'
 
-import React, { useMemo } from 'react'
-import { usePathname } from 'next/navigation'
+import React from 'react'
 
 import { User, Heart, HeartOutline } from '@/components/Icons'
 import { NavigationTab } from '@/components/NavigationTab'
 import { HeaderButton } from '../HeaderButton'
 import { SearchInput } from '../SearchInput'
+import { TABS } from '@/hooks/users'
 
-enum TABS { users, favorites }
+interface Props {
+  currentTab: TABS
+  setCurrentTab: React.Dispatch<React.SetStateAction<TABS>>
+  search: string
+  setSearch: React.Dispatch<React.SetStateAction<string>>
+}
 
-export function Header() {
-  const pathname = usePathname()
-  const selectedTab = useMemo(() => {
-    if (pathname.includes('favoritos')) return TABS.favorites
-    return TABS.users
-  }, [pathname])
+export function Header(props: Props) {
+  const { currentTab, setCurrentTab, search, setSearch } = props
 
   const tabs = [
     {
       icon: <User />,
       label: 'Usuários',
-      isSelected: selectedTab === TABS.users,
-      href: '/',
+      isSelected: currentTab === TABS.users,
+      onClick: () => setCurrentTab(TABS.users),
     },
     {
       icon: <Heart />,
       label: 'Favoritos',
-      isSelected: selectedTab === TABS.favorites,
-      href: '/favoritos',
+      isSelected: currentTab === TABS.favorites,
+      onClick: () => setCurrentTab(TABS.favorites),
     },
   ]
 
   return (
-    <header className='fixed w-full bottom-0 max-sm:border-t sm:border-b border-border h-16 sm:h-20 sm:top-0 sm:bottom-auto'>
+    <header className='fixed w-full z-40 bg-light bottom-0 max-sm:border-t sm:border-b border-border h-16 sm:h-20 sm:top-0 sm:bottom-auto'>
       <div className='max-sm:hidden w-full h-full flex justify-between items-center'>
         <div className='w-full flex py-5 px-6'>
           <SearchInput
             aria-label='Buscar usuários do GitHub'
             placeholder='Buscar usuário'
+            value={search}
+            onChange={e => setSearch(e.target.value)}
           />
         </div>
-        <HeaderButton href='/favoritos'>
-          <HeartOutline />
-          Favoritos
-        </HeaderButton>
+        {currentTab === TABS.users ? (
+          <HeaderButton label='Ver repositórios' onClick={() => setCurrentTab(TABS.favorites)}>
+            <HeartOutline />
+            Favoritos
+          </HeaderButton>
+        ) : (
+          <HeaderButton label='Ver usuários' onClick={() => setCurrentTab(TABS.users)}>
+            <User />
+            Usuários
+          </HeaderButton>
+        )}
       </div>
       <nav className='h-full grid grid-cols-2 sm:hidden'>
         {tabs.map(tab => (

@@ -1,25 +1,24 @@
 import React from 'react'
-import Link from 'next/link'
 
 interface Props {
   icon: JSX.Element
   label: string
   isSelected: boolean
-  href: string
+  onClick: () => void
 }
 
 export function NavigationTab(props: Props) {
-  const { icon, label, isSelected, href } = props
+  const { icon, label, isSelected, onClick } = props
 
   return (
-    <Link
-      href={href}
+    <button
+      onClick={onClick}
       aria-label={`Ver ${label}`}
       title={label}
       className={`${isSelected ? 'bg-primary text-white' : 'text-placeholder hover:bg-matte'
         } h-full w-full flex items-center justify-center p-4`}
     >
       {icon}
-    </Link>
+    </button>
   )
 }

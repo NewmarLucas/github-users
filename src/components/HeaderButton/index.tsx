@@ -1,22 +1,23 @@
 import React from 'react'
-import Link from 'next/link'
 
 interface Props extends React.PropsWithChildren {
-  href: string
+  onClick: () => void
+  label: string
   className?: string
 }
 
 export function HeaderButton(props: Props) {
-  const { children, href, className = '' } = props
+  const { children, onClick, label, className = '' } = props
 
   return (
-    <Link
-      href={href}
-      className={`h-full text-white bg-primary hover:bg-primary-dark px-6 py-2 text-md font-medium ${className}`}
+    <button
+      onClick={onClick}
+      aria-label={label}
+      className={`h-full min-w-36 text-white bg-primary hover:brightness-105 px-6 py-2 text-md font-medium ${className}`}
     >
-      <span className='h-full flex items-center gap-2'>
+      <span className='h-full flex items-center justify-center gap-2'>
         {children}
       </span>
-    </Link>
+    </button>
   )
 }

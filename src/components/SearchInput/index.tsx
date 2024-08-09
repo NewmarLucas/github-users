@@ -6,7 +6,7 @@ interface Props extends React.DetailedHTMLProps<
 > { }
 
 export function SearchInput(props: Props) {
-  const { className, ...restProps } = props
+  const { className = '', ...restProps } = props
 
   return (
     <div className="relative w-full max-w-[668px]">
