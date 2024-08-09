@@ -3,6 +3,7 @@ import './global.css'
 
 export const metadata = {
   viewport: 'width=device-width, initial-scale=1 maximum-scale=1.0, user-scalable=no',
+  description: 'Busca de usuários do github e visualização dos repositórios',
 };
 
 const poppins = localFont({
@@ -33,7 +34,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='pt-BR'>
-      <body className={`w-screen min-h-[100dvh] pb-16 md:pt-20 mt:pb-0 ${poppins.className}`}>
+      <body className={`w-screen min-h-[100dvh] ${poppins.className}`}>
         {children}
       </body>
     </html>
