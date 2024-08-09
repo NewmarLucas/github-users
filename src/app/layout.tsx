@@ -1,10 +1,17 @@
 import localFont from 'next/font/local'
+import { Viewport } from 'next';
 import './global.css'
 
 export const metadata = {
-  viewport: 'width=device-width, initial-scale=1 maximum-scale=1.0, user-scalable=no',
   description: 'Busca de usuários do github e visualização dos repositórios',
 };
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+}
 
 const poppins = localFont({
   src: [
