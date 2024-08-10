@@ -3,15 +3,37 @@ import { debounce } from '@/utils/debounce'
 
 export enum TABS { users, favorites }
 
+export interface User {
+  id: string
+  name: string | null
+  login: string
+  avatarUrl: string
+  bio: string | null
+}
+
+export interface Repo {
+  id: string
+  name: string
+  description: string | null
+  url: string
+  updatedAt: string
+  primaryLanguage: {
+    name: string
+    color: string
+  } | null
+}
+
 export function useUsersHooks() {
   const [currentTab, setCurrentTab] = useState(TABS.users)
   const [search, setSearch] = useState('')
-  const [data, setData] = useState([])
+  const [user, setUser] = useState<User>({} as User)
+  const [repos, setRepos] = useState<Repo[]>([])
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (!search) {
-      setData([])
+      setRepos([])
+      setUser({} as User)
       return
     }
 
@@ -23,10 +45,13 @@ export function useUsersHooks() {
       fetch(`/api/users?${params.toString()}`, { signal })
         .then(async res => {
           const response = await res.json()
-          setData(response)
+          const { repositories, ...userData } = response
+          setUser(userData)
+          setRepos(repositories)
         })
         .catch(() => {
-          setData([])
+          setRepos([])
+          setUser({} as User)
         })
         .finally(() => {
           setLoading(false)
@@ -41,7 +66,8 @@ export function useUsersHooks() {
     setCurrentTab,
     search,
     setSearch,
-    data,
+    user,
+    repos,
     loading,
   }
 }

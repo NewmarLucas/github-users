@@ -34,7 +34,7 @@ export function Header(props: Props) {
   ]
 
   return (
-    <header className='fixed w-full z-40 bg-light bottom-0 max-sm:border-t sm:border-b border-border h-16 sm:h-20 sm:top-0 sm:bottom-auto'>
+    <header className='fixed w-full z-40 bg-light bottom-0 max-sm:border-t sm:border-b h-16 sm:h-20 sm:top-0 sm:bottom-auto'>
       <div className='max-sm:hidden w-full h-full flex justify-between items-center'>
         <div className='w-full flex py-5 px-6'>
           <SearchInput

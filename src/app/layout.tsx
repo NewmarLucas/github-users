@@ -41,7 +41,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='pt-BR'>
-      <body className={`w-screen min-h-[100dvh] ${poppins.className}`}>
+      <body className={`w-full min-h-[100dvh] overflow-x-hidden  ${poppins.className}`}>
         {children}
       </body>
     </html>

@@ -13,7 +13,7 @@ export function HeaderButton(props: Props) {
     <button
       onClick={onClick}
       aria-label={label}
-      className={`h-full min-w-36 text-white bg-primary hover:brightness-105 px-6 py-2 text-md font-medium ${className}`}
+      className={`h-full min-w-36 text-white bg-primary hover:bg-primary/80 px-6 py-2 text-md font-medium ${className}`}
     >
       <span className='h-full flex items-center justify-center gap-2'>
         {children}

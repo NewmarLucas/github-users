@@ -13,7 +13,7 @@ export function SearchInput(props: Props) {
       <input
         {...restProps}
         type='search'
-        className={`h-full w-full py-[10px] px-4 pr-10 text-grey-dark text-md font-normal border border-border rounded-md focus:outline-0 placeholder:text-placeholder ${className}`}
+        className={`h-full w-full py-[10px] px-4 pr-10 text-grey-dark text-md font-normal border rounded-md focus:outline-0 placeholder:text-placeholder ${className}`}
       />
       <div className="absolute top-[calc((100%-24px)/2)] right-4 text-placeholder">
         <Search />
