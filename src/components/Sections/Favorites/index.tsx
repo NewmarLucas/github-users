@@ -12,11 +12,11 @@ export function Favorites({ favoriteHooks, repos }: Props) {
   const { favorites } = favoriteHooks
 
   return (
-    <div className='container h-full'>
+    <div className='py-4 container h-[calc(100%-80px)] sm:h-full'>
       {!!favorites?.length ? (
         <div className='h-full overflow-hidden'>
           <h1 className='text-primary mb-6 text-center'>Meus favoritos</h1>
-          <section className='flex flex-col gap-4 h-[calc(100%-55px)] overflow-y-auto'>
+          <section className='flex flex-col gap-4 h-[calc(100%-55px)] overflow-y-auto pr-2'>
             {favorites.map(repo => (
               <RepoCard key={repo.id} favoriteHooks={favoriteHooks} repo={repo} />
             ))}

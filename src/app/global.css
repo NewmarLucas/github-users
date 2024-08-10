@@ -8,7 +8,7 @@
   }
 
   body {
-    @apply bg-light font-poppins text-grey-neutral;
+    @apply bg-light font-poppins text-grey-neutral overflow-hidden;
   }
 
   h1 {

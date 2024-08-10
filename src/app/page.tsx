@@ -28,8 +28,8 @@ export default function Page() {
         search={search}
         setSearch={setSearch}
       />
-      <div className='pb-16 sm:pt-20 sm:pb-0 h-screen sm:overflow-hidden lg:container mx-auto'>
-        <div className='w-full h-full p-4'>
+      <div className='px-4 pb-16 sm:pt-20 sm:pb-0 h-screen sm:overflow-hidden lg:container mx-auto'>
+        <>
           {currentTab === TABS.users && (
             <ListUsers
               user={user}
@@ -42,7 +42,7 @@ export default function Page() {
           {currentTab === TABS.favorites && (
             <Favorites repos={repos} favoriteHooks={favoriteHooks} />
           )}
-        </div>
+        </>
       </div>
     </>
   )

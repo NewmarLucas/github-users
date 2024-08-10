@@ -28,7 +28,7 @@ export function ListUsers(props: Props) {
   return (
     <LoadingWrapper isLoading={loading}>
       {!!repos.length ? (
-        <main className='w-full h-full gap-y-4 gap-x-6 xl:gap-x-12 grid sm:grid-cols-[250px_auto] md:grid-cols-[300px_auto] xl:grid-cols-[448px_auto]'>
+        <main className='py-4 w-full h-[calc(100%-80px)] sm:h-full gap-y-4 gap-x-6 xl:gap-x-12 grid sm:grid-cols-[250px_auto] md:grid-cols-[300px_auto] xl:grid-cols-[448px_auto]'>
           <aside className='sm:max-w-[448px] shrink-0'>
             <UserCard user={user} />
           </aside>
@@ -45,7 +45,7 @@ export function ListUsers(props: Props) {
         <div className='w-full h-full flex flex-col gap-6 sm:gap-11 py-8 px-5 sm:items-center sm:justify-center'>
           <div className='flex flex-col gap-2 sm:gap-0 sm:items-center'>
             <h1 data-testid='listUsersTitle'>Procure pelo Nome ou Nome de Usuário</h1>
-            <h5>Encontre os repositórios de algum usuário digitando no campo acima</h5>
+            <p className='text-h5'>Encontre os repositórios de algum usuário digitando no campo acima</p>
           </div>
           <Image
             className='max-sm:hidden'
