@@ -10,11 +10,30 @@ export function useUsersHooks() {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    if (!search) {
+      setData([])
+      return
+    }
+
+    const controller = new AbortController()
     setLoading(true)
     debounce(() => {
-      console.log(search)
-      setLoading(false)
-    })
+      const signal = controller.signal
+      const params = new URLSearchParams({ search })
+      fetch(`/api/users?${params.toString()}`, { signal })
+        .then(async res => {
+          const response = await res.json()
+          setData(response)
+        })
+        .catch(() => {
+          setData([])
+        })
+        .finally(() => {
+          setLoading(false)
+        })
+    }, 500)
+
+    return () => { controller.abort() }
   }, [search])
 
   return {
