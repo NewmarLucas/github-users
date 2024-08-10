@@ -47,7 +47,8 @@ export function useUsersHooks() {
           const response = await res.json()
           const { repositories, ...userData } = response
           setUser(userData)
-          setRepos(repositories)
+          if (repositories instanceof Array && !!repositories.length)
+            setRepos(repositories)
         })
         .catch(() => {
           setRepos([])

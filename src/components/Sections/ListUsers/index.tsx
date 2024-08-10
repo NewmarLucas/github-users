@@ -6,18 +6,20 @@ import { LoadingWrapper } from '@/components/LoadingWrapper';
 import { RepoCard } from '@/components/RepoCard';
 import { UserCard } from '@/components/UserCard';
 import { Repo, User } from '@/hooks/users';
+import { FavoriteHook } from '@/hooks/favorite';
 
 interface Props {
   searchTerm: string
   user: User
   repos: Repo[]
   loading: boolean
+  favoriteHooks: FavoriteHook
 }
 
 export function ListUsers(props: Props) {
-  const { searchTerm, user, repos, loading } = props
+  const { searchTerm, user, repos, loading, favoriteHooks } = props
   const foundResults = useMemo(() => {
-    if (searchTerm && !loading && !repos.length) return false
+    if (searchTerm && !loading && !repos?.length) return false
     return true
   }, [loading, repos])
 
@@ -33,7 +35,9 @@ export function ListUsers(props: Props) {
           <div className='h-full overflow-hidden'>
             <h1 className='text-primary mb-4'>Repositórios</h1>
             <section className='flex flex-col gap-4 h-[calc(100%-47px)] overflow-y-auto pr-3'>
-              {repos.map(repo => <RepoCard key={repo.id} repo={repo} />)}
+              {repos.map(repo => (
+                <RepoCard key={repo.id} favoriteHooks={favoriteHooks} repo={repo} />
+              ))}
             </section>
           </div>
         </main>
@@ -45,6 +49,7 @@ export function ListUsers(props: Props) {
           </div>
           <Image
             className='max-sm:hidden'
+            priority
             src={peopleSearch}
             alt='Pessoa segurando uma lupa simbolizando que está procurando outra pessoa'
           />

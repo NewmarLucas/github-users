@@ -1,22 +1,47 @@
 import React from 'react'
 import { Repo } from '@/hooks/users'
+import { FavoriteHook } from '@/hooks/favorite'
 import { dateFormat } from '@/utils/formatters'
+import { SmallHeartOutline, SmallHeart } from '@/components/Icons'
 
 interface Props {
   repo: Repo
+  favoriteHooks: FavoriteHook
 }
 
-export function RepoCard({ repo }: Props) {
+export function RepoCard({ repo, favoriteHooks }: Props) {
+  const { removeFavorite, addFavorite } = favoriteHooks
+  const isFavorited = favoriteHooks.isFavorited(repo.id)
+
+  function handleFavorite() {
+    if (isFavorited) {
+      removeFavorite(repo.id)
+    } else {
+      addFavorite(repo)
+    }
+  }
+
   return (
     <article className='w-full p-4 rounded-md border relative flex flex-col'>
-      <button className='absolute top-4 right-4 border h-10 w-10 shrink-0 rounded-full'>
-        {'<3'}
+      <button
+        onClick={handleFavorite}
+        className={`${isFavorited ? 'border-primary text-primary' : 'border-none bg-matte text-placeholder'
+          } absolute top-4 right-4 border h-10 w-10 shrink-0 rounded-full flex items-center justify-center`}
+        aria-label={isFavorited ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
+        title={isFavorited ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
+        aria-pressed={isFavorited}
+      >
+        {isFavorited ? <SmallHeart /> : <SmallHeartOutline />}
       </button>
-      <h2>{repo.name}</h2>
+      <h2>
+        <a href={repo.url} target="_blank" rel="noopener noreferrer" className='hover:underline'>
+          {repo.name}
+        </a>
+      </h2>
       {repo.description && (
         <p
-        className='mt-2 text-placeholder text-md w-full line-clamp-3 md:w-3/4'
-        title={repo.description}
+          className='mt-2 text-placeholder text-md w-full line-clamp-3 md:w-3/4'
+          title={repo.description}
         >
           {repo.description}
         </p>

@@ -1,9 +1,10 @@
 'use client'
 
 import React from 'react'
+import { TABS, useUsersHooks } from '@/hooks/users'
+import { useFavoriteHooks } from '@/hooks/favorite'
 import { Header } from '@/components/Header'
 import { ListUsers } from '@/components/Sections/ListUsers'
-import { TABS, useUsersHooks } from '@/hooks/users'
 import { Favorites } from '@/components/Sections/Favorites'
 
 export default function Page() {
@@ -16,6 +17,7 @@ export default function Page() {
     repos,
     loading,
   } = useUsersHooks()
+  const favoriteHooks = useFavoriteHooks()
 
   return (
     <>
@@ -34,9 +36,12 @@ export default function Page() {
               repos={repos}
               loading={loading}
               searchTerm={search}
+              favoriteHooks={favoriteHooks}
             />
           )}
-          {currentTab === TABS.favorites && <Favorites />}
+          {currentTab === TABS.favorites && (
+            <Favorites repos={repos} favoriteHooks={favoriteHooks} />
+          )}
         </div>
       </div>
     </>
