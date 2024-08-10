@@ -44,15 +44,16 @@ export function useUsersHooks() {
       const params = new URLSearchParams({ search })
       fetch(`/api/users?${params.toString()}`, { signal })
         .then(async res => {
-          const response = await res.json()
-          const { repositories, ...userData } = response
-          setUser(userData)
-          if (repositories instanceof Array && !!repositories.length)
-            setRepos(repositories)
-        })
-        .catch(() => {
-          setRepos([])
-          setUser({} as User)
+          if (res.ok) {
+            const response = await res.json()
+            const { repositories, ...userData } = response
+            setUser(userData)
+            if (repositories instanceof Array && !!repositories.length)
+              setRepos(repositories)
+          } else {
+            setRepos([])
+            setUser({} as User)
+          }
         })
         .finally(() => {
           setLoading(false)
