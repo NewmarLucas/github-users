@@ -1,7 +1,7 @@
 import { renderHook, act, waitFor } from '@testing-library/react'
 import { get, set } from 'idb-keyval'
 import { useFavoriteHooks } from './favorite'
-import { Repo } from './users'
+import { mockRepo } from '__fixtures__/mockData'
 
 jest.mock('idb-keyval', () => ({
   get: jest.fn(),
@@ -9,18 +9,6 @@ jest.mock('idb-keyval', () => ({
 }))
 
 describe('useFavoriteHooks', () => {
-  const mockRepo: Repo = {
-    id: '1',
-    name: 'Test Repo',
-    description: 'A test repository',
-    url: 'https://github.com/test/repo',
-    updatedAt: '2024-01-01T00:00:00Z',
-    primaryLanguage: {
-      name: 'JavaScript',
-      color: '#f1e05a',
-    },
-  }
-
   beforeEach(() => {
     jest.clearAllMocks()
   })

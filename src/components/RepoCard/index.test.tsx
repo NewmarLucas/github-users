@@ -5,19 +5,10 @@ import React from "react"
 import { fireEvent, render, screen } from "@testing-library/react"
 import { RepoCard } from "./index"
 import { FavoriteHook } from "@/hooks/favorite"
+import { mockRepo } from "__fixtures__/mockData"
 
 describe('RepoCard Component', () => {
-  const repo = {
-    id: '1',
-    name: 'Repo Test',
-    description: 'Here is the repo description',
-    url: 'https://repo.com',
-    updatedAt: '2024-06-06',
-    primaryLanguage: {
-      name: 'JavaScript',
-      color: 'yellow',
-    }
-  }
+  const repo = mockRepo as any
 
   it("should render the repo data correctly", () => {
     const favoriteHooks = { isFavorited: jest.fn(() => true) } as any as FavoriteHook
@@ -35,7 +26,7 @@ describe('RepoCard Component', () => {
     expect(primaryLanguage).toHaveTextContent(repo.primaryLanguage.name)
     expect(primaryLanguage).toHaveAttribute('title', repo.primaryLanguage.name)
     expect(updatedAt).toBeInTheDocument()
-    expect(updatedAt).toHaveTextContent('Updated on 06 Jun 2024')
+    expect(updatedAt).toHaveTextContent('Updated on 01 Jan 2024')
   })
 
   it("should call 'removeFavorite' function when the repo is favorited and click the button favorite", () => {

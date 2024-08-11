@@ -5,16 +5,11 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import { ListUsers } from "./index"
 import { FavoriteHook } from "@/hooks/favorite"
+import { mockRepo, mockUser } from "__fixtures__/mockData"
 
 describe('ListUsers Section Component', () => {
   const props = {
-    user: {
-      id: '1',
-      name: 'john doe',
-      login: 'johndoe',
-      avatarUrl: 'https://img.png',
-      bio: 'Hello world!',
-    },
+    user: mockUser,
     loading: false,
     favoriteHooks: { isFavorited: jest.fn(() => true) } as any as FavoriteHook
   }
@@ -34,17 +29,7 @@ describe('ListUsers Section Component', () => {
     const _props = {
       ...props,
       searchTerm: 'johndoe',
-      repos: [{
-        id: '1',
-        name: 'Repo Test',
-        description: 'Here is the repo description',
-        url: 'https://repo.com',
-        updatedAt: '2024-06-06',
-        primaryLanguage: {
-          name: 'JavaScript',
-          color: 'yellow',
-        }
-      }]
+      repos: [mockRepo]
     }
     render(<ListUsers {..._props} />)
     const title = screen.queryByTestId('list-users-title')

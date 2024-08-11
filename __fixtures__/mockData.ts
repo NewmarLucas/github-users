@@ -1,4 +1,4 @@
-import { Repo, User } from "../../src/hooks/users";
+import { Repo, User } from "@/hooks/users";
 
 export const mockUser: User = {
   id: '1',

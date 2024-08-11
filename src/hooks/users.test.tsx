@@ -2,7 +2,7 @@ import { renderHook, act, waitFor } from '@testing-library/react'
 import axios from 'axios'
 import { useUsersHooks, TABS } from './users'
 import { debounce } from '@/utils/debounce'
-import { mockUser, mockRepo } from '__tests__/__fixtures__/mockData'
+import { mockUser, mockRepo } from '__fixtures__/mockData'
 
 jest.mock('@/utils/debounce', () => ({
   debounce: jest.fn(fn => fn())

@@ -5,6 +5,7 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import { Favorites } from "./index"
 import { FavoriteHook } from "@/hooks/favorite"
+import { mockRepo } from "__fixtures__/mockData"
 
 describe('Favorites Section Component', () => {
   it("should render the favorites section correctly when has no saved favorites", () => {
@@ -21,17 +22,7 @@ describe('Favorites Section Component', () => {
   it("should render the favorites section correctly", () => {
     const favoriteHooks = {
       isFavorited: jest.fn(() => true),
-      favorites: [{
-        id: '1',
-        name: 'Repo Test',
-        description: 'Here is the repo description',
-        url: 'https://repo.com',
-        updatedAt: '2024-06-06',
-        primaryLanguage: {
-          name: 'JavaScript',
-          color: 'yellow',
-        }
-      }]
+      favorites: [mockRepo]
     } as any as FavoriteHook
     render(<Favorites favoriteHooks={favoriteHooks} />)
     const title = screen.queryByText('Meus favoritos')
