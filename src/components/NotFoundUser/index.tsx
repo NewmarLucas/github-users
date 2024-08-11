@@ -12,7 +12,7 @@ export function NotFoundUser(props: Props) {
   return (
     <div className='w-full h-full flex flex-col gap-6 sm:gap-11 py-4 sm:py-8 px-5 sm:items-center sm:justify-center'>
       <div className='flex flex-col md:gap-2 sm:gap-0 items-center text-center'>
-        <span className='font-poppins font-semibold text-h4 sm:text-h1 text-primary'>
+        <span className='font-poppins font-semibold text-h4 sm:text-h1 text-primary' data-testid='search-term'>
           “{searchTerm}”
         </span>
         <h1 className='text-h4 sm:text-h1'>Nenhum usuário encontrado</h1>

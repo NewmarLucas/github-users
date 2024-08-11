@@ -7,5 +7,5 @@ import Page from "./page";
 
 it("App Router: Works with Server Components", () => {
   render(<Page />);
-  expect(screen.getByTestId("listUsersTitle")).toHaveTextContent("Procure pelo Nome ou Nome de Usuário");
+  expect(screen.getByTestId("list-users-title")).toHaveTextContent("Procure pelo Nome ou Nome de Usuário");
 });

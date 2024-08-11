@@ -1,6 +1,6 @@
 export function SmallHeartOutline() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="19px" height="16px" viewBox="0 0 19 16" version="1.1">
+    <svg data-testid='small-heart-out' xmlns="http://www.w3.org/2000/svg" width="19px" height="16px" viewBox="0 0 19 16" version="1.1">
       <defs>
         <clipPath id="clip1">
           <path d="M 0.46875 0 L 18.8125 0 L 18.8125 16 L 0.46875 16 Z M 0.46875 0 " />

@@ -1,6 +1,6 @@
 export function SmallHeart() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="16px" viewBox="0 0 20 16" version="1.1">
+    <svg data-testid='small-heart' xmlns="http://www.w3.org/2000/svg" width="20px" height="16px" viewBox="0 0 20 16" version="1.1">
       <defs>
         <clipPath id="clip1">
           <path d="M 0 0 L 19.808594 0 L 19.808594 16 L 0 16 Z M 0 0 " />

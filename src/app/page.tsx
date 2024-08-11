@@ -40,7 +40,7 @@ export default function Page() {
             />
           )}
           {currentTab === TABS.favorites && (
-            <Favorites repos={repos} favoriteHooks={favoriteHooks} />
+            <Favorites favoriteHooks={favoriteHooks} />
           )}
         </>
       </div>

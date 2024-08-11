@@ -44,13 +44,16 @@ export function ListUsers(props: Props) {
       ) : (
         <div className='w-full h-full flex flex-col gap-6 sm:gap-11 py-8 px-5 sm:items-center sm:justify-center'>
           <div className='flex flex-col gap-2 sm:gap-0 sm:items-center'>
-            <h1 data-testid='listUsersTitle'>Procure pelo Nome ou Nome de Usuário</h1>
-            <p className='text-h5'>Encontre os repositórios de algum usuário digitando no campo acima</p>
+            <h1 data-testid='list-users-title'>Procure pelo Nome ou Nome de Usuário</h1>
+            <p className='text-h5' data-testid='list-users-subtitle'>
+              Encontre os repositórios de algum usuário digitando no campo acima
+            </p>
           </div>
           <Image
             className='max-sm:hidden'
             priority
             src={peopleSearch}
+            data-testid='people-img'
             alt='Pessoa segurando uma lupa simbolizando que está procurando outra pessoa'
           />
         </div>

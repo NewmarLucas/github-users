@@ -37,6 +37,7 @@ export function Header(props: Props) {
     <>
       <div className='sm:hidden w-full p-4 pb-0'>
         <SearchInput
+          data-testid='search-input-mobile'
           aria-label='Buscar usuários do GitHub'
           placeholder='Buscar usuário'
           value={search}
@@ -47,6 +48,7 @@ export function Header(props: Props) {
         <div className='max-sm:hidden w-full h-full flex justify-between items-center'>
           <div className='w-full flex py-5 px-6'>
             <SearchInput
+              data-testid='search-input-desktop'
               aria-label='Buscar usuários do GitHub'
               placeholder='Buscar usuário'
               value={search}

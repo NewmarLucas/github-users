@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import axios from 'axios'
 import { debounce } from '@/utils/debounce'
 
 export enum TABS { users, favorites }
@@ -30,6 +31,22 @@ export function useUsersHooks() {
   const [repos, setRepos] = useState<Repo[]>([])
   const [loading, setLoading] = useState(false)
 
+  async function getUser(search: string, signal?: AbortSignal) {
+    try {
+      const params = new URLSearchParams({ search })
+      const res = await axios(`/api/users?${params.toString()}`, { signal })
+      const { repositories, ...userData } = res.data
+      setUser(userData)
+      if (repositories instanceof Array && !!repositories.length)
+        setRepos(repositories)
+    } catch {
+      setRepos([])
+      setUser({} as User)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   useEffect(() => {
     if (!search) {
       setRepos([])
@@ -41,23 +58,7 @@ export function useUsersHooks() {
     setLoading(true)
     debounce(() => {
       const signal = controller.signal
-      const params = new URLSearchParams({ search })
-      fetch(`/api/users?${params.toString()}`, { signal })
-        .then(async res => {
-          if (res.ok) {
-            const response = await res.json()
-            const { repositories, ...userData } = response
-            setUser(userData)
-            if (repositories instanceof Array && !!repositories.length)
-              setRepos(repositories)
-          } else {
-            setRepos([])
-            setUser({} as User)
-          }
-        })
-        .finally(() => {
-          setLoading(false)
-        })
+      getUser(search, signal)
     }, 500)
 
     return () => { controller.abort() }
@@ -71,5 +72,6 @@ export function useUsersHooks() {
     user,
     repos,
     loading,
+    getUser,
   }
 }

@@ -24,6 +24,7 @@ export function RepoCard({ repo, favoriteHooks }: Props) {
   return (
     <article className='w-full p-4 rounded-md border relative flex flex-col'>
       <button
+        data-testid='favorite-button'
         onClick={handleFavorite}
         className={`${isFavorited ? 'border-primary text-primary' : 'border-none bg-matte text-placeholder'
           } absolute top-4 right-4 border h-10 w-10 shrink-0 rounded-full flex items-center justify-center`}
@@ -34,7 +35,7 @@ export function RepoCard({ repo, favoriteHooks }: Props) {
         {isFavorited ? <SmallHeart /> : <SmallHeartOutline />}
       </button>
       <h2>
-        <a href={repo.url} target="_blank" rel="noopener noreferrer" className='hover:underline'>
+        <a href={repo.url} data-testid="repo-title" target="_blank" rel="noopener noreferrer" className='hover:underline'>
           {repo.name}
         </a>
       </h2>
@@ -42,6 +43,7 @@ export function RepoCard({ repo, favoriteHooks }: Props) {
         <p
           className='mt-2 text-placeholder text-md w-full line-clamp-3 md:w-3/4'
           title={repo.description}
+          data-testid="repo-description"
         >
           {repo.description}
         </p>
@@ -51,6 +53,7 @@ export function RepoCard({ repo, favoriteHooks }: Props) {
           <p
             className='flex gap-2 w-24 truncate items-center text-sm text-grey-neutral'
             title={repo.primaryLanguage.name}
+            data-testid='repo-primary-language'
           >
             <span
               className='h-4 w-4 shrink-0 rounded-full'
@@ -59,7 +62,7 @@ export function RepoCard({ repo, favoriteHooks }: Props) {
             {repo.primaryLanguage.name}
           </p>
         )}
-        <p className='text-sm text-grey-neutral'>
+        <p className='text-sm text-grey-neutral' data-testid='repo-updated-at'>
           Updated on {dateFormat(repo.updatedAt)}
         </p>
       </div>

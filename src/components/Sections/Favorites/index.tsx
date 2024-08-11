@@ -1,14 +1,12 @@
 import React from 'react'
-import { Repo } from '@/hooks/users';
 import { FavoriteHook } from '@/hooks/favorite';
 import { RepoCard } from '@/components/RepoCard';
 
 interface Props {
-  repos: Repo[]
   favoriteHooks: FavoriteHook
 }
 
-export function Favorites({ favoriteHooks, repos }: Props) {
+export function Favorites({ favoriteHooks }: Props) {
   const { favorites } = favoriteHooks
 
   return (

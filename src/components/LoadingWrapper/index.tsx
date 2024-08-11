@@ -14,6 +14,7 @@ export function LoadingWrapper(props: Props) {
       <div className='w-24 h-24'>
         <Image
           src={gitImg}
+          data-testid='loading-img'
           alt='Icone que indica carregamento'
           className='animate-[scale_1.3s_ease-in-out_infinite]'
         />
