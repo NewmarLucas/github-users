@@ -15,7 +15,7 @@ export function NavigationTab(props: Props) {
       onClick={onClick}
       aria-label={`Ver ${label}`}
       data-testid={`button-${label}`}
-      title={label}
+      title={`Ver ${label}`}
       className={`${isSelected ? 'bg-primary text-white' : 'text-placeholder hover:bg-matte'
         } h-full w-full flex items-center justify-center p-4`}
     >

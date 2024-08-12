@@ -12,6 +12,7 @@ export function HeaderButton(props: Props) {
   return (
     <button
       onClick={onClick}
+      title={label}
       aria-label={label}
       className={`h-full min-w-36 text-white bg-primary hover:bg-primary/80 px-6 py-2 text-md font-medium ${className}`}
     >

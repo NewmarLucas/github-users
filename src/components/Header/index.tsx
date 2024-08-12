@@ -56,7 +56,7 @@ export function Header(props: Props) {
             />
           </div>
           {currentTab === TABS.users ? (
-            <HeaderButton label='Ver repositórios' onClick={() => setCurrentTab(TABS.favorites)}>
+            <HeaderButton label='Ver favoritos' onClick={() => setCurrentTab(TABS.favorites)}>
               <HeartOutline />
               Favoritos
             </HeaderButton>
