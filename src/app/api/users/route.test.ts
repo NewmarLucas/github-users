@@ -31,6 +31,10 @@ const mockSuccessResponse = {
                 },
               },
             ],
+            pageInfo: {
+              endCursor: null,
+              hasNextPage: false,
+            }
           },
         },
       },
@@ -73,6 +77,10 @@ describe('GET /api/users', () => {
       login: 'johndoe',
       avatarUrl: 'https://example.com/avatar.jpg',
       bio: 'Bio example',
+      pageInfo: {
+        hasNextPage: false,
+        endCursor: null,
+      },
       repositories: [
         {
           id: 'repo1',

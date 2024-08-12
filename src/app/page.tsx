@@ -16,6 +16,7 @@ export default function Page() {
     user,
     repos,
     loading,
+    loadMoreRepos,
   } = useUsersHooks()
   const favoriteHooks = useFavoriteHooks()
 
@@ -37,6 +38,7 @@ export default function Page() {
               loading={loading}
               searchTerm={search}
               favoriteHooks={favoriteHooks}
+              loadMoreRepos={loadMoreRepos}
             />
           )}
           {currentTab === TABS.favorites && (

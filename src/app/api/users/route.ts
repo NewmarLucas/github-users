@@ -24,6 +24,10 @@ interface UserNode {
     bio: string;
     repositories: {
       edges: RepositoryNode[];
+      pageInfo: {
+        endCursor: string
+        hasNextPage: boolean
+      }
     };
   };
 }
@@ -44,6 +48,9 @@ const ghGraphql = graphql.defaults({
 export async function GET(req: NextRequest) {
   const url = new URL(req.url)
   const search = url.searchParams.get('search')
+  const first = parseInt(url.searchParams.get('first') || '20')
+  const after = url.searchParams.get('after') || null
+
   if (!search) {
     return new Response(JSON.stringify({ success: false }), {
       status: 422
@@ -51,7 +58,7 @@ export async function GET(req: NextRequest) {
   }
 
   const query = `
-    query($search: String!) {
+    query($search: String!, $first: Int!, $after: String) {
       search(query: $search, type: USER, first: 1) {
         edges {
           node {
@@ -61,7 +68,7 @@ export async function GET(req: NextRequest) {
               login
               avatarUrl
               bio
-              repositories(last: 100, ownerAffiliations: OWNER) {
+              repositories(first: $first, after: $after, ownerAffiliations: OWNER) {
                 edges {
                   node {
                     id
@@ -75,6 +82,10 @@ export async function GET(req: NextRequest) {
                     }
                   }
                 }
+                pageInfo {
+                  endCursor
+                  hasNextPage
+                }
               }
             }
           }
@@ -82,7 +93,7 @@ export async function GET(req: NextRequest) {
       }
     }
   `
-  const params = { 'search': search }
+  const params = { search, first, after }
 
   try {
     const response = await ghGraphql<GraphQLResponse>(query, params)
@@ -91,6 +102,7 @@ export async function GET(req: NextRequest) {
         user.node.name?.toLowerCase() === search.toLowerCase() ||
         user.node.login?.toLowerCase() === search.toLowerCase()
     )?.at(0);
+
     if (user) {
       const formattedResponse = {
         id: user.node.id,
@@ -99,6 +111,7 @@ export async function GET(req: NextRequest) {
         avatarUrl: user.node.avatarUrl,
         bio: user.node.bio,
         repositories: user.node.repositories?.edges?.map((repo: any) => ({ ...repo?.node })),
+        pageInfo: user.node.repositories.pageInfo,
       }
 
       return new NextResponse(JSON.stringify(formattedResponse), {

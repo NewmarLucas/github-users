@@ -19,3 +19,15 @@ export const mockRepo: Repo = {
     color: '#f1e05a',
   },
 };
+
+export const mockRepoPage2: Repo = {
+  id: 'repo2',
+  name: 'Repo 2',
+  description: 'Description for Repo 2',
+  url: 'https://github.com/johndoe/repo2',
+  updatedAt: '2024-01-01T00:00:00Z',
+  primaryLanguage: {
+    name: 'JavaScript',
+    color: '#f1e05a',
+  },
+}

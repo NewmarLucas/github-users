@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import Image from 'next/image';
 import peopleSearch from '@/assets/images/people_search.svg'
 import { NotFoundUser } from '@/components/NotFoundUser';
@@ -14,14 +14,43 @@ interface Props {
   repos: Repo[]
   loading: boolean
   favoriteHooks: FavoriteHook
+  loadMoreRepos: () => void
 }
 
 export function ListUsers(props: Props) {
-  const { searchTerm, user, repos, loading, favoriteHooks } = props
+  const { searchTerm, user, repos, loading, favoriteHooks, loadMoreRepos } = props
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null)
+
   const foundResults = useMemo(() => {
     if (searchTerm && !loading && !repos?.length) return false
     return true
   }, [loading, repos])
+
+  useEffect(() => {
+    if (!repos.length) return
+
+    const handleScroll = () => {
+      const container = scrollContainerRef?.current
+
+      if (container) {
+        const { scrollTop, scrollHeight, clientHeight } = container
+        if (scrollTop + clientHeight >= scrollHeight && !loading) {
+          loadMoreRepos()
+        }
+      }
+    }
+
+    const container = scrollContainerRef?.current
+    if (container) {
+      container.addEventListener('scroll', handleScroll)
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener('scroll', handleScroll)
+      }
+    }
+  }, [loading, loadMoreRepos, repos])
 
   if (!foundResults) return <NotFoundUser searchTerm={searchTerm} />
 
@@ -34,7 +63,10 @@ export function ListUsers(props: Props) {
           </aside>
           <div className='h-full overflow-hidden'>
             <h1 className='text-primary mb-4'>Repositórios</h1>
-            <section className='flex flex-col gap-4 h-[calc(100%-47px)] overflow-y-auto pr-3'>
+            <section
+              ref={scrollContainerRef}
+              className='flex flex-col gap-4 h-[calc(100%-47px)] overflow-y-auto pr-3'
+            >
               {repos.map(repo => (
                 <RepoCard key={repo.id} favoriteHooks={favoriteHooks} repo={repo} />
               ))}

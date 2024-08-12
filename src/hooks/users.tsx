@@ -30,18 +30,27 @@ export function useUsersHooks() {
   const [user, setUser] = useState<User>({} as User)
   const [repos, setRepos] = useState<Repo[]>([])
   const [loading, setLoading] = useState(false)
+  const [hasNextPage, setHasNextPage] = useState(true)
+  const [endCursor, setEndCursor] = useState<string | null>(null)
 
-  async function getUser(search: string, signal?: AbortSignal) {
+  async function getUser(search: string, first = 20, after: string | null = null, signal?: AbortSignal) {
     try {
-      const params = new URLSearchParams({ search })
+      const params = new URLSearchParams({
+        search,
+        first: first.toString(),
+        after: after || ''
+      })
       const res = await axios(`/api/users?${params.toString()}`, { signal })
-      const { repositories, ...userData } = res.data
+      const { repositories, pageInfo, ...userData } = res.data
+
       setUser(userData)
-      if (repositories instanceof Array && !!repositories.length)
-        setRepos(repositories)
+      setRepos(prevRepos => [...prevRepos, ...repositories])
+      setHasNextPage(pageInfo?.hasNextPage ?? false)
+      setEndCursor(pageInfo?.endCursor ?? null)
     } catch {
       setRepos([])
       setUser({} as User)
+      setHasNextPage(false)
     } finally {
       setLoading(false)
     }
@@ -57,12 +66,18 @@ export function useUsersHooks() {
     const controller = new AbortController()
     setLoading(true)
     debounce(() => {
-      const signal = controller.signal
-      getUser(search, signal)
+      setRepos([])
+      getUser(search, 20, null, controller.signal)
     }, 500)
 
     return () => { controller.abort() }
   }, [search])
+
+  const loadMoreRepos = () => {
+    if (hasNextPage) {
+      getUser(search, 20, endCursor)
+    }
+  }
 
   return {
     currentTab,
@@ -73,5 +88,6 @@ export function useUsersHooks() {
     repos,
     loading,
     getUser,
+    loadMoreRepos,
   }
 }
