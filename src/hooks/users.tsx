@@ -65,6 +65,9 @@ export function useUsersHooks() {
 
     const controller = new AbortController()
     setLoading(true)
+    if (currentTab === TABS.favorites) {
+      setCurrentTab(TABS.users)
+    }
     debounce(() => {
       setRepos([])
       getUser(search, 20, null, controller.signal)
